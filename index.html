@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>余秋呈 Yu Qiucheng</title>
+<meta name="description" content="余秋呈 — 艺术家、精神分析师。现成品的二度绘画性。Yu Qiucheng — Artist, Psychoanalyst.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+SC:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #0a0908;
+  --dark: #141210;
+  --charcoal: #1e1c1a;
+  --warm-gray: #3a3632;
+  --stone: #6b6560;
+  --parchment: #c8bfb0;
+  --cream: #e0d8cc;
+  --white: #f0ece4;
+  --red: #8b2d1e;
+  --red-dim: #6b2218;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--warm-gray) var(--black);
+}
+
+body {
+  background: var(--black);
+  color: var(--parchment);
+  font-family: 'Noto Serif SC', 'Cormorant Garamond', 'Georgia', serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--cream);
+}
+
+/* Language toggle */
+.lang-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.25rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.lang-toggle button {
+  background: none;
+  border: none;
+  color: var(--stone);
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  transition: color 0.4s;
+}
+
+.lang-toggle button.active {
+  color: var(--parchment);
+}
+
+.lang-toggle button:hover {
+  color: var(--cream);
+}
+
+.lang-toggle span {
+  color: var(--warm-gray);
+  padding: 0.3rem 0;
+}
+
+/* Hide/show language content */
+[lang="en"] { display: none; }
+body.en [lang="en"] { display: block; }
+body.en [lang="zh"] { display: none; }
+body.en [lang="zh-inline"] { display: none; }
+body:not(.en) [lang="en-inline"] { display: none; }
+[lang="zh-inline"], [lang="en-inline"] { display: inline; }
+body.en [lang="en-inline"] { display: inline; }
+
+/* Hero */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('images/portrait.jpg') center center / cover no-repeat;
+  filter: brightness(0.35) contrast(1.1);
+  transform: scale(1.05);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-name-zh {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  margin-bottom: 0.5rem;
+  color: var(--cream);
+}
+
+.hero-name-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 2rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+  font-weight: 300;
+  color: var(--stone);
+  letter-spacing: 0.2em;
+}
+
+.hero-line {
+  width: 1px;
+  height: 60px;
+  background: var(--warm-gray);
+  margin: 3rem auto 0;
+  opacity: 0.5;
+}
+
+/* Sections */
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 2rem;
+}
+
+section.full-width {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.section-title {
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 4rem;
+}
+
+/* About */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-portrait {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: grayscale(0.2) contrast(1.05);
+}
+
+.about-text p {
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  font-weight: 300;
+  line-height: 2.2;
+  margin-bottom: 1.5rem;
+  color: var(--parchment);
+}
+
+.about-meta {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--charcoal);
+}
+
+.about-meta dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 2rem;
+  font-size: 0.85rem;
+}
+
+.about-meta dt {
+  color: var(--stone);
+  font-weight: 400;
+}
+
+.about-meta dd {
+  color: var(--parchment);
+  font-weight: 300;
+}
+
+/* Philosophy */
+.philosophy-section {
+  background: var(--dark);
+  max-width: none;
+  padding: 8rem 2rem;
+}
+
+.philosophy-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.philosophy-quote {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 200;
+  line-height: 2;
+  color: var(--cream);
+  margin-bottom: 3rem;
+  text-indent: -0.5em;
+}
+
+.philosophy-quote::before {
+  content: '';
+}
+
+.philosophy-body p {
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  font-weight: 300;
+  line-height: 2.2;
+  margin-bottom: 1.8rem;
+  color: var(--parchment);
+}
+
+.philosophy-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Works */
+.works-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.work-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--dark);
+}
+
+.work-item img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0, 0.25, 1), filter 0.8s;
+  filter: brightness(0.85);
+}
+
+.work-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(1);
+}
+
+.work-item .work-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: linear-gradient(transparent, rgba(10,9,8,0.85));
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.work-item:hover .work-caption {
+  opacity: 1;
+}
+
+.work-caption h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+
+.work-caption p {
+  font-size: 0.78rem;
+  color: var(--stone);
+  font-weight: 300;
+}
+
+.work-item.large {
+  grid-column: span 2;
+}
+
+.work-item.large img {
+  aspect-ratio: 21/9;
+}
+
+/* Exhibition */
+.exhibition-list {
+  max-width: 800px;
+}
+
+.exhibition-entry {
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--charcoal);
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 2rem;
+  align-items: baseline;
+}
+
+.exhibition-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--stone);
+  letter-spacing: 0.1em;
+}
+
+.exhibition-info h3 {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+
+.exhibition-info p {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--stone);
+}
+
+/* Practice */
+.practice-section {
+  background: var(--dark);
+  max-width: none;
+  padding: 8rem 2rem;
+}
+
+.practice-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.practice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.practice-card h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.practice-card p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 2;
+  color: var(--parchment);
+}
+
+/* Publications */
+.pub-entry {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--charcoal);
+}
+
+.pub-entry h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+
+.pub-entry p {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--stone);
+}
+
+/* Footer */
+footer {
+  padding: 4rem 2rem;
+  text-align: center;
+  border-top: 1px solid var(--charcoal);
+}
+
+footer p {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+/* Fade in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .works-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-item.large {
+    grid-column: span 1;
+  }
+
+  .work-item.large img {
+    aspect-ratio: 4/3;
+  }
+
+  .work-item .work-caption {
+    opacity: 1;
+  }
+
+  .practice-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .exhibition-entry {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  section {
+    padding: 5rem 1.5rem;
+  }
+
+  .philosophy-section,
+  .practice-section {
+    padding: 5rem 1.5rem;
+  }
+
+  .lang-toggle {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(10,9,8,0.96);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: var(--stone);
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button class="active" onclick="setLang('zh')">中</button>
+  <span>/</span>
+  <button onclick="setLang('en')">EN</button>
+</div>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1 class="hero-name-zh">余秋呈</h1>
+    <p class="hero-name-en">Yu Qiucheng</p>
+    <p class="hero-subtitle">
+      <span lang="zh-inline">艺术家 &nbsp;&middot;&nbsp; 精神分析师</span>
+      <span lang="en-inline">Artist &nbsp;&middot;&nbsp; Psychoanalyst</span>
+    </p>
+    <div class="hero-line"></div>
+  </div>
+</header>
+
+<!-- About -->
+<section id="about" class="fade-in">
+  <p class="section-title">
+    <span lang="zh-inline">关于</span>
+    <span lang="en-inline">About</span>
+  </p>
+  <div class="about-grid">
+    <img src="images/portrait.jpg" alt="余秋呈" class="about-portrait">
+    <div class="about-text">
+      <div lang="zh">
+        <p>余秋呈，艺术家、精神分析师，现居广州。七岁起师从国画家邓少峰，习画六年；1997年师从湖北美院油画系主任胡朝阳；2005年后师从尚扬先生。</p>
+        <p>他的创作以「现成品的二度绘画性」为核心，在工厂生产留下的废纸板上进行二度创作——将工业生产的偶发图像视为一种「仿绘画性」，连同纸板本身作为整一材料，与铁丝网架、塑料残片、有机玻璃等现成物重新组合，突破传统绘画边界，形成一种装置绘画的开放形式。</p>
+        <p>近年来，他将工作延伸至广州白云心理医院，从收集「物质的边角料」转向收集「精神的边角料」——倾听住院者的讲述，以精神分析的方法介入社会现场。他相信：每个人的生命都是艺术。</p>
+      </div>
+      <div lang="en">
+        <p>Yu Qiucheng is an artist and psychoanalyst based in Guangzhou. He began studying traditional Chinese painting under master Deng Shaofeng at age seven; in 1997, he studied under Hu Chaoyang, chair of the Oil Painting Department at Hubei Institute of Fine Arts; and from 2005, under the mentorship of Shang Yang.</p>
+        <p>His practice centers on what he terms "the secondary painterliness of readymades" — working upon the incidental images left on discarded cardboard from factory production, treating these industrial traces as a form of "simulated painterliness," recombining them with wire mesh, plastic fragments, and plexiglass into an open form of installation painting that transcends traditional boundaries.</p>
+        <p>In recent years, he has extended his work to the Baiyun Psychiatric Hospital in Guangzhou, shifting from collecting "material offcuts" to gathering "spiritual offcuts" — listening to patients' narratives through psychoanalytic methods. He believes that every person's life is art.</p>
+      </div>
+      <div class="about-meta">
+        <dl>
+          <dt lang="zh-inline">现居</dt><dt lang="en-inline">Based in</dt>
+          <dd lang="zh-inline">广州</dd><dd lang="en-inline">Guangzhou, China</dd>
+          <dt lang="zh-inline">师承</dt><dt lang="en-inline">Mentors</dt>
+          <dd>
+            <span lang="zh-inline">邓少峰、胡朝阳、尚扬</span>
+            <span lang="en-inline">Deng Shaofeng, Hu Chaoyang, Shang Yang</span>
+          </dd>
+          <dt lang="zh-inline">领域</dt><dt lang="en-inline">Fields</dt>
+          <dd>
+            <span lang="zh-inline">装置绘画、精神分析、艺术治疗</span>
+            <span lang="en-inline">Installation Painting, Psychoanalysis, Art Therapy</span>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Philosophy -->
+<div class="philosophy-section fade-in">
+  <div class="philosophy-inner">
+    <p class="section-title">
+      <span lang="zh-inline">理念</span>
+      <span lang="en-inline">Philosophy</span>
+    </p>
+
+    <div lang="zh">
+      <p class="philosophy-quote">「不仅墙上有屋漏痕，人身上也有屋漏痕。每个人额头上的皱纹和其心理感受都是屋漏痕。」</p>
+      <div class="philosophy-body">
+        <p>余秋呈的思想根植于颜真卿的「屋漏痕」美学。当他在广东某洗水工厂看到排气扇外近百米围墙上十几年的生产痕迹时，他理解了屋漏痕——不是书法对自然的模仿，而是时间与劳作在物质上的真实铭刻。</p>
+        <p>一次央视报道的广州工厂毒胶水致死事件，让他获得了死亡现场的生产痕迹。凝视那些工人中毒失控打翻胶水碗留下的印记，他突然明白：屋漏痕不仅留在墙上，还刻在人的生命体上。</p>
+        <p>他将侘寂美学融入创作——侘，贫穷、粗糙、无常；寂，孤独、寂静。不完美才是另一种完美。结合佛教「无我」思想，他追求的不是形式的精致，而是一种诗意的抽象，让中西绘画在视觉上的边界趋于模糊。</p>
+      </div>
+    </div>
+
+    <div lang="en">
+      <p class="philosophy-quote">"Traces of time appear not only on walls, but on people. The wrinkles on every forehead, every psychological wound — these too are traces."</p>
+      <div class="philosophy-body">
+        <p>Yu Qiucheng's thought is rooted in the classical Chinese aesthetic of <em>wulou hen</em> — the "wall-leak trace" first articulated by the Tang calligrapher Yan Zhenqing. When he encountered the hundred-meter factory walls stained by decades of production residue, he understood: these were not imitations of nature, but time and labor inscribed directly into matter.</p>
+        <p>A fatal toxic glue incident at a Guangzhou factory — reported by CCTV — yielded the production traces from the death scene itself. Gazing at the marks left by poisoned workers who had knocked over bowls of toxic adhesive, he realized: traces of time are etched not only into walls, but into human lives.</p>
+        <p>He integrates the Japanese aesthetic of <em>wabi-sabi</em> — wabi: poverty, roughness, impermanence; sabi: solitude, silence. Imperfection as another form of perfection. Drawing on the Buddhist concept of <em>anatta</em> (non-self), he pursues not formal refinement but a poetic abstraction that dissolves the boundary between Eastern and Western painting.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Works -->
+<section id="works" class="full-width fade-in">
+  <div style="padding: 0 2rem;">
+    <p class="section-title">
+      <span lang="zh-inline">作品</span>
+      <span lang="en-inline">Works</span>
+    </p>
+  </div>
+  <div class="works-grid">
+    <div class="work-item large" onclick="openLightbox(this)">
+      <img src="images/work-dark.jpg" alt="余秋呈作品">
+      <div class="work-caption">
+        <h3 lang="zh-inline">纸本生产痕迹</h3>
+        <h3 lang="en-inline">Production Traces on Paper</h3>
+        <p lang="zh-inline">综合材料</p>
+        <p lang="en-inline">Mixed Media</p>
+      </div>
+    </div>
+    <div class="work-item" onclick="openLightbox(this)">
+      <img src="images/work-compass.jpg" alt="余秋呈作品 — 回音">
+      <div class="work-caption">
+        <h3 lang="zh-inline">回音</h3>
+        <h3 lang="en-inline">Echo</h3>
+        <p lang="zh-inline">综合材料，2016</p>
+        <p lang="en-inline">Mixed Media, 2016</p>
+      </div>
+    </div>
+    <div class="work-item" onclick="openLightbox(this)">
+      <img src="images/work-ink.jpg" alt="余秋呈作品">
+      <div class="work-caption">
+        <h3 lang="zh-inline">装置绘画</h3>
+        <h3 lang="en-inline">Installation Painting</h3>
+        <p lang="zh-inline">综合材料</p>
+        <p lang="en-inline">Mixed Media</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Exhibitions -->
+<section id="exhibitions" class="fade-in">
+  <p class="section-title">
+    <span lang="zh-inline">展览</span>
+    <span lang="en-inline">Exhibitions</span>
+  </p>
+  <div class="exhibition-list">
+    <div class="exhibition-entry">
+      <span class="exhibition-year">2019</span>
+      <div class="exhibition-info">
+        <div lang="zh">
+          <h3>Inter-World-View 2019</h3>
+          <p>中国美术学院 &middot; 热带病艺术研究所 &middot;《一个人的社会》项目</p>
+        </div>
+        <div lang="en">
+          <h3>Inter-World-View 2019</h3>
+          <p>China Academy of Art &middot; Tropical Disease Art Institute &middot; <em>A Society of One</em></p>
+        </div>
+      </div>
+    </div>
+    <div class="exhibition-entry">
+      <span class="exhibition-year">2016</span>
+      <div class="exhibition-info">
+        <div lang="zh">
+          <h3>现成品的二度绘画性 — 余秋呈个展</h3>
+          <p>北京今日美术馆 &middot; 策展人：朱其</p>
+        </div>
+        <div lang="en">
+          <h3>The Secondary Painterliness of Readymades — Solo Exhibition</h3>
+          <p>Today Art Museum, Beijing &middot; Curated by Zhu Qi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Practice -->
+<div class="practice-section fade-in">
+  <div class="practice-inner">
+    <p class="section-title">
+      <span lang="zh-inline">实践</span>
+      <span lang="en-inline">Practice</span>
+    </p>
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div lang="zh">
+          <h3>白云心理医院</h3>
+          <p>在广州白云心理医院设立工作室，以拉康式精神分析的方法，充当住院者的「耳朵」。从物质的边角料到精神的边角料——倾听那些被社会排斥的声音，在讲述与聆听之间建立移情关系。</p>
+        </div>
+        <div lang="en">
+          <h3>Baiyun Psychiatric Hospital</h3>
+          <p>Based at Guangzhou's Baiyun Psychiatric Hospital, he practices Lacanian listening — becoming "the ear" for patients. From material offcuts to spiritual offcuts: hearing the voices excluded by society, building transference through the act of telling and listening.</p>
+        </div>
+      </div>
+      <div class="practice-card">
+        <div lang="zh">
+          <h3>艺术治疗</h3>
+          <p>在癌症康复营中开展绘画治疗课程，融合侘寂美学与佛教观想，引导营员通过身体感知进行创作。以五行为框架——火烧黑暗，水洗毒素，在撕裂与重组中完成身心的净化。</p>
+        </div>
+        <div lang="en">
+          <h3>Art Therapy</h3>
+          <p>Leading painting therapy in cancer recovery programs, integrating wabi-sabi aesthetics with Buddhist visualization. Guided by the five elements — burning darkness with fire, washing toxins with water — participants create through tearing and reassembling, achieving purification of body and mind.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Publications -->
+<section id="publications" class="fade-in">
+  <p class="section-title">
+    <span lang="zh-inline">发表</span>
+    <span lang="en-inline">Publications</span>
+  </p>
+  <div class="exhibition-list">
+    <div class="pub-entry">
+      <div lang="zh">
+        <h3>《宁静并不宁静》</h3>
+        <p>《天涯》杂志，2026年第1期</p>
+      </div>
+      <div lang="en">
+        <h3>"Tranquility Is Not Tranquil"</h3>
+        <p><em>Tianya</em> Magazine, Issue 1, 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2026 余秋呈 Yu Qiucheng</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script>
+// Language toggle
+function setLang(lang) {
+  const btns = document.querySelectorAll('.lang-toggle button');
+  if (lang === 'en') {
+    document.body.classList.add('en');
+    btns[0].classList.remove('active');
+    btns[1].classList.add('active');
+  } else {
+    document.body.classList.remove('en');
+    btns[0].classList.add('active');
+    btns[1].classList.remove('active');
+  }
+}
+
+// Lightbox
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  const caption = el.querySelector('.work-caption h3');
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Fade in on scroll
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(function(el) {
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
