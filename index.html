@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>余秋呈 Yu Qiucheng</title>
-<meta name="description" content="余秋呈 — 艺术家、精神分析师。现成品的二度绘画性。Yu Qiucheng — Artist, Psychoanalyst.">
+<meta name="description" content="余秋呈 — 艺术家、精神分析师。装置绘画、现成品的二度绘画性。Yu Qiucheng — Artist, Psychoanalyst. Installation painting and the secondary painterliness of readymades.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+SC:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 
 :root {
   --black: #0a0908;
-  --dark: #141210;
+  --dark: #131110;
   --charcoal: #1e1c1a;
   --warm-gray: #3a3632;
   --stone: #6b6560;
@@ -21,7 +21,6 @@
   --cream: #e0d8cc;
   --white: #f0ece4;
   --red: #8b2d1e;
-  --red-dim: #6b2218;
 }
 
 html {
@@ -44,16 +43,32 @@ body {
   color: var(--cream);
 }
 
-/* Language toggle */
-.lang-toggle {
+/* Nav */
+nav {
   position: fixed;
-  top: 2rem;
-  right: 2rem;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  mix-blend-mode: difference;
+}
+
+nav .nav-name {
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--parchment);
+  font-weight: 300;
+}
+
+.lang-toggle {
   display: flex;
   gap: 0.25rem;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
@@ -70,20 +85,11 @@ body {
   transition: color 0.4s;
 }
 
-.lang-toggle button.active {
-  color: var(--parchment);
-}
+.lang-toggle button.active { color: var(--parchment); }
+.lang-toggle button:hover { color: var(--cream); }
+.lang-toggle span { color: var(--warm-gray); padding: 0.3rem 0; }
 
-.lang-toggle button:hover {
-  color: var(--cream);
-}
-
-.lang-toggle span {
-  color: var(--warm-gray);
-  padding: 0.3rem 0;
-}
-
-/* Hide/show language content */
+/* Language system */
 [lang="en"] { display: none; }
 body.en [lang="en"] { display: block; }
 body.en [lang="zh"] { display: none; }
@@ -96,8 +102,8 @@ body.en [lang="en-inline"] { display: inline; }
 .hero {
   height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
   position: relative;
   overflow: hidden;
 }
@@ -105,157 +111,138 @@ body.en [lang="en-inline"] { display: inline; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('images/portrait.jpg') center center / cover no-repeat;
-  filter: brightness(0.35) contrast(1.1);
+  background: url('images/work-dark.jpg') center 40% / cover no-repeat;
+  filter: brightness(0.4) contrast(1.15);
   transform: scale(1.05);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,9,8,0.2) 0%, rgba(10,9,8,0) 40%, rgba(10,9,8,0.7) 100%);
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  text-align: center;
-  padding: 2rem;
+  padding: 0 3rem 5rem;
 }
 
 .hero-name-zh {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: 300;
-  letter-spacing: 0.4em;
-  margin-bottom: 0.5rem;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 200;
+  letter-spacing: 0.3em;
   color: var(--cream);
+  line-height: 1.2;
 }
 
 .hero-name-en {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.85rem, 1.3vw, 1.1rem);
   font-weight: 300;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--stone);
-  margin-bottom: 2rem;
-}
-
-.hero-subtitle {
-  font-size: clamp(0.75rem, 1.2vw, 0.95rem);
-  font-weight: 300;
-  color: var(--stone);
-  letter-spacing: 0.2em;
-}
-
-.hero-line {
-  width: 1px;
-  height: 60px;
-  background: var(--warm-gray);
-  margin: 3rem auto 0;
-  opacity: 0.5;
+  margin-top: 0.8rem;
 }
 
 /* Sections */
 section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8rem 2rem;
+  padding: 8rem 2.5rem;
 }
 
-section.full-width {
+section.full-bleed {
   max-width: none;
   padding-left: 0;
   padding-right: 0;
 }
 
-.section-title {
-  font-size: clamp(0.7rem, 1vw, 0.85rem);
+.section-label {
+  font-size: 0.7rem;
   font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--stone);
   margin-bottom: 4rem;
 }
 
 /* About */
-.about-grid {
+.about-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 2fr 3fr;
+  gap: 5rem;
   align-items: start;
 }
 
 .about-portrait {
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  filter: grayscale(0.2) contrast(1.05);
+  filter: contrast(1.05);
 }
 
-.about-text p {
-  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+.about-body {
+  padding-top: 1rem;
+}
+
+.about-body p {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
   font-weight: 300;
   line-height: 2.2;
   margin-bottom: 1.5rem;
-  color: var(--parchment);
 }
 
-.about-meta {
+.about-details {
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid var(--charcoal);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
-.about-meta dl {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.5rem 2rem;
+.detail-item {
   font-size: 0.85rem;
 }
 
-.about-meta dt {
+.detail-label {
   color: var(--stone);
   font-weight: 400;
+  margin-bottom: 0.3rem;
 }
 
-.about-meta dd {
+.detail-value {
   color: var(--parchment);
   font-weight: 300;
 }
 
-/* Philosophy */
-.philosophy-section {
+/* Statement */
+.statement-section {
   background: var(--dark);
-  max-width: none;
-  padding: 8rem 2rem;
+  padding: 8rem 2.5rem;
 }
 
-.philosophy-inner {
-  max-width: 800px;
+.statement-inner {
+  max-width: 720px;
   margin: 0 auto;
 }
 
-.philosophy-quote {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+.statement-text {
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
   font-weight: 200;
-  line-height: 2;
-  color: var(--cream);
-  margin-bottom: 3rem;
-  text-indent: -0.5em;
-}
-
-.philosophy-quote::before {
-  content: '';
-}
-
-.philosophy-body p {
-  font-size: clamp(0.88rem, 1.05vw, 1rem);
-  font-weight: 300;
   line-height: 2.2;
-  margin-bottom: 1.8rem;
-  color: var(--parchment);
+  color: var(--cream);
 }
 
-.philosophy-body p:last-child {
+.statement-text p {
+  margin-bottom: 2rem;
+}
+
+.statement-text p:last-child {
   margin-bottom: 0;
 }
 
-/* Works */
+/* Works grid */
 .works-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -274,7 +261,7 @@ section.full-width {
   aspect-ratio: 4/3;
   object-fit: cover;
   transition: transform 0.8s cubic-bezier(0.25, 0, 0.25, 1), filter 0.8s;
-  filter: brightness(0.85);
+  filter: brightness(0.88);
 }
 
 .work-item:hover img {
@@ -282,7 +269,7 @@ section.full-width {
   filter: brightness(1);
 }
 
-.work-item .work-caption {
+.work-info {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -293,188 +280,116 @@ section.full-width {
   transition: opacity 0.5s;
 }
 
-.work-item:hover .work-caption {
+.work-item:hover .work-info {
   opacity: 1;
 }
 
-.work-caption h3 {
-  font-size: 1rem;
+.work-info h3 {
+  font-size: 0.95rem;
   font-weight: 400;
   color: var(--cream);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
-.work-caption p {
-  font-size: 0.78rem;
+.work-info p {
+  font-size: 0.75rem;
   color: var(--stone);
   font-weight: 300;
 }
 
-.work-item.large {
+.work-item.span-2 {
   grid-column: span 2;
 }
 
-.work-item.large img {
+.work-item.span-2 img {
   aspect-ratio: 21/9;
 }
 
-/* Exhibition */
-.exhibition-list {
-  max-width: 800px;
-}
-
-.exhibition-entry {
+/* Timeline */
+.timeline-entry {
   padding: 2rem 0;
   border-bottom: 1px solid var(--charcoal);
   display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 2rem;
+  grid-template-columns: 80px 1fr;
+  gap: 2.5rem;
   align-items: baseline;
 }
 
-.exhibition-year {
+.timeline-year {
   font-family: 'Cormorant Garamond', serif;
   font-size: 0.85rem;
   color: var(--stone);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
 }
 
-.exhibition-info h3 {
-  font-size: 1.05rem;
+.timeline-content h3 {
+  font-size: 1rem;
   font-weight: 400;
   color: var(--cream);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
 }
 
-.exhibition-info p {
+.timeline-content p {
   font-size: 0.85rem;
   font-weight: 300;
   color: var(--stone);
+  line-height: 1.8;
 }
 
-/* Practice */
-.practice-section {
-  background: var(--dark);
-  max-width: none;
-  padding: 8rem 2rem;
+/* Exhibition image */
+.exhibition-image {
+  margin-top: 4rem;
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  filter: brightness(0.9);
 }
 
-.practice-inner {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.practice-grid {
+/* Two column text */
+.two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
 }
 
-.practice-card h3 {
+.col h3 {
   font-size: 1rem;
   font-weight: 400;
   color: var(--cream);
   margin-bottom: 1rem;
 }
 
-.practice-card p {
+.col p {
   font-size: 0.9rem;
   font-weight: 300;
-  line-height: 2;
+  line-height: 2.1;
   color: var(--parchment);
-}
-
-/* Publications */
-.pub-entry {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--charcoal);
-}
-
-.pub-entry h3 {
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--cream);
-  margin-bottom: 0.3rem;
-}
-
-.pub-entry p {
-  font-size: 0.85rem;
-  font-weight: 300;
-  color: var(--stone);
 }
 
 /* Footer */
 footer {
-  padding: 4rem 2rem;
+  padding: 4rem 2.5rem;
   text-align: center;
   border-top: 1px solid var(--charcoal);
 }
 
 footer p {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--warm-gray);
   font-weight: 300;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
-/* Fade in animation */
-.fade-in {
+/* Fade in */
+.reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
-.fade-in.visible {
+.reveal.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .works-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .work-item.large {
-    grid-column: span 1;
-  }
-
-  .work-item.large img {
-    aspect-ratio: 4/3;
-  }
-
-  .work-item .work-caption {
-    opacity: 1;
-  }
-
-  .practice-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .exhibition-entry {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-
-  section {
-    padding: 5rem 1.5rem;
-  }
-
-  .philosophy-section,
-  .practice-section {
-    padding: 5rem 1.5rem;
-  }
-
-  .lang-toggle {
-    top: 1rem;
-    right: 1rem;
-  }
 }
 
 /* Lightbox */
@@ -483,15 +398,13 @@ footer p {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(10,9,8,0.96);
+  background: rgba(10,9,8,0.97);
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.lightbox.active {
-  display: flex;
-}
+.lightbox.active { display: flex; }
 
 .lightbox img {
   max-width: 90vw;
@@ -506,227 +419,273 @@ footer p {
   transform: translateX(-50%);
   text-align: center;
   color: var(--stone);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 300;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .hero-content { padding: 0 1.5rem 3rem; }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-details { grid-template-columns: 1fr; }
+
+  .works-grid { grid-template-columns: 1fr; }
+  .work-item.span-2 { grid-column: span 1; }
+  .work-item.span-2 img { aspect-ratio: 4/3; }
+  .work-item .work-info { opacity: 1; }
+
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .timeline-entry {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  section { padding: 5rem 1.5rem; }
+  .statement-section { padding: 5rem 1.5rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- Language Toggle -->
-<div class="lang-toggle">
-  <button class="active" onclick="setLang('zh')">中</button>
-  <span>/</span>
-  <button onclick="setLang('en')">EN</button>
-</div>
+<!-- Nav -->
+<nav>
+  <span class="nav-name">余秋呈</span>
+  <div class="lang-toggle">
+    <button class="active" onclick="setLang('zh')">中</button>
+    <span>/</span>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+</nav>
 
-<!-- Hero -->
+<!-- Hero — uses work-dark.jpg -->
 <header class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-name-zh">余秋呈</h1>
     <p class="hero-name-en">Yu Qiucheng</p>
-    <p class="hero-subtitle">
-      <span lang="zh-inline">艺术家 &nbsp;&middot;&nbsp; 精神分析师</span>
-      <span lang="en-inline">Artist &nbsp;&middot;&nbsp; Psychoanalyst</span>
-    </p>
-    <div class="hero-line"></div>
   </div>
 </header>
 
-<!-- About -->
-<section id="about" class="fade-in">
-  <p class="section-title">
+<!-- About — uses portrait.jpg -->
+<section id="about" class="reveal">
+  <p class="section-label">
     <span lang="zh-inline">关于</span>
     <span lang="en-inline">About</span>
   </p>
-  <div class="about-grid">
+  <div class="about-layout">
     <img src="images/portrait.jpg" alt="余秋呈" class="about-portrait">
-    <div class="about-text">
+    <div class="about-body">
       <div lang="zh">
-        <p>余秋呈，艺术家、精神分析师，现居广州。七岁起师从国画家邓少峰，习画六年；1997年师从湖北美院油画系主任胡朝阳；2005年后师从尚扬先生。</p>
-        <p>他的创作以「现成品的二度绘画性」为核心，在工厂生产留下的废纸板上进行二度创作——将工业生产的偶发图像视为一种「仿绘画性」，连同纸板本身作为整一材料，与铁丝网架、塑料残片、有机玻璃等现成物重新组合，突破传统绘画边界，形成一种装置绘画的开放形式。</p>
-        <p>近年来，他将工作延伸至广州白云心理医院，从收集「物质的边角料」转向收集「精神的边角料」——倾听住院者的讲述，以精神分析的方法介入社会现场。他相信：每个人的生命都是艺术。</p>
+        <p>余秋呈，艺术家、精神分析师，现居广州。七岁起师从国画家邓少峰，习画六年；1997年师从湖北美院油画系主任胡朝阳；2005年后追随尚扬先生。</p>
+        <p>他以「现成品的二度绘画性」为核心展开创作——在工厂废弃纸板上的偶发图像中发现绘画性，将铁丝网架、塑料残片、有机玻璃等工业现成物重新组合为装置绘画。近年将实践延伸至精神分析领域，在广州白云心理医院设立工作室，倾听住院者的讲述，从收集物质的边角料转向收集精神的边角料。</p>
       </div>
       <div lang="en">
-        <p>Yu Qiucheng is an artist and psychoanalyst based in Guangzhou. He began studying traditional Chinese painting under master Deng Shaofeng at age seven; in 1997, he studied under Hu Chaoyang, chair of the Oil Painting Department at Hubei Institute of Fine Arts; and from 2005, under the mentorship of Shang Yang.</p>
-        <p>His practice centers on what he terms "the secondary painterliness of readymades" — working upon the incidental images left on discarded cardboard from factory production, treating these industrial traces as a form of "simulated painterliness," recombining them with wire mesh, plastic fragments, and plexiglass into an open form of installation painting that transcends traditional boundaries.</p>
-        <p>In recent years, he has extended his work to the Baiyun Psychiatric Hospital in Guangzhou, shifting from collecting "material offcuts" to gathering "spiritual offcuts" — listening to patients' narratives through psychoanalytic methods. He believes that every person's life is art.</p>
+        <p>Yu Qiucheng is an artist and psychoanalyst based in Guangzhou. He began studying traditional Chinese painting under Deng Shaofeng at age seven; trained under Hu Chaoyang, chair of Oil Painting at the Hubei Institute of Fine Arts from 1997; and followed the mentorship of Shang Yang from 2005.</p>
+        <p>His practice centers on "the secondary painterliness of readymades" — discovering painterly qualities in the incidental images left on discarded factory cardboard, recombining wire mesh, plastic fragments, and plexiglass into installation paintings. In recent years he has extended his work into psychoanalysis, establishing a studio at Guangzhou's Baiyun Psychiatric Hospital, shifting from collecting material offcuts to gathering spiritual ones.</p>
       </div>
-      <div class="about-meta">
-        <dl>
-          <dt lang="zh-inline">现居</dt><dt lang="en-inline">Based in</dt>
-          <dd lang="zh-inline">广州</dd><dd lang="en-inline">Guangzhou, China</dd>
-          <dt lang="zh-inline">师承</dt><dt lang="en-inline">Mentors</dt>
-          <dd>
-            <span lang="zh-inline">邓少峰、胡朝阳、尚扬</span>
-            <span lang="en-inline">Deng Shaofeng, Hu Chaoyang, Shang Yang</span>
-          </dd>
-          <dt lang="zh-inline">领域</dt><dt lang="en-inline">Fields</dt>
-          <dd>
-            <span lang="zh-inline">装置绘画、精神分析、艺术治疗</span>
-            <span lang="en-inline">Installation Painting, Psychoanalysis, Art Therapy</span>
-          </dd>
-        </dl>
+      <div class="about-details">
+        <div class="detail-item">
+          <div class="detail-label">
+            <span lang="zh-inline">现居</span>
+            <span lang="en-inline">Based in</span>
+          </div>
+          <div class="detail-value">
+            <span lang="zh-inline">广州</span>
+            <span lang="en-inline">Guangzhou, China</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <span lang="zh-inline">师承</span>
+            <span lang="en-inline">Mentors</span>
+          </div>
+          <div class="detail-value">
+            <span lang="zh-inline">邓少峰 · 胡朝阳 · 尚扬</span>
+            <span lang="en-inline">Deng Shaofeng · Hu Chaoyang · Shang Yang</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <span lang="zh-inline">领域</span>
+            <span lang="en-inline">Fields</span>
+          </div>
+          <div class="detail-value">
+            <span lang="zh-inline">装置绘画 · 精神分析 · 艺术治疗</span>
+            <span lang="en-inline">Installation Painting · Psychoanalysis · Art Therapy</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">
+            <span lang="zh-inline">发表</span>
+            <span lang="en-inline">Writing</span>
+          </div>
+          <div class="detail-value">
+            <span lang="zh-inline">《宁静并不宁静》《天涯》2026年第1期</span>
+            <span lang="en-inline">"Tranquility Is Not Tranquil" <em>Tianya</em>, 2026</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Philosophy -->
-<div class="philosophy-section fade-in">
-  <div class="philosophy-inner">
-    <p class="section-title">
-      <span lang="zh-inline">理念</span>
-      <span lang="en-inline">Philosophy</span>
-    </p>
-
-    <div lang="zh">
-      <p class="philosophy-quote">「不仅墙上有屋漏痕，人身上也有屋漏痕。每个人额头上的皱纹和其心理感受都是屋漏痕。」</p>
-      <div class="philosophy-body">
-        <p>余秋呈的思想根植于颜真卿的「屋漏痕」美学。当他在广东某洗水工厂看到排气扇外近百米围墙上十几年的生产痕迹时，他理解了屋漏痕——不是书法对自然的模仿，而是时间与劳作在物质上的真实铭刻。</p>
-        <p>一次央视报道的广州工厂毒胶水致死事件，让他获得了死亡现场的生产痕迹。凝视那些工人中毒失控打翻胶水碗留下的印记，他突然明白：屋漏痕不仅留在墙上，还刻在人的生命体上。</p>
-        <p>他将侘寂美学融入创作——侘，贫穷、粗糙、无常；寂，孤独、寂静。不完美才是另一种完美。结合佛教「无我」思想，他追求的不是形式的精致，而是一种诗意的抽象，让中西绘画在视觉上的边界趋于模糊。</p>
-      </div>
+<!-- Statement — no image, text only -->
+<div class="statement-section reveal">
+  <div class="statement-inner">
+    <div class="statement-text" lang="zh">
+      <p>当我们讨论艺术的时候，反而是要清除艺术。</p>
+      <p>每个人的生命都是艺术。额头上的皱纹是屋漏痕，心理的感受是屋漏痕，工厂围墙上十几年的生产痕迹也是屋漏痕。不完美才是另一种完美。</p>
     </div>
-
-    <div lang="en">
-      <p class="philosophy-quote">"Traces of time appear not only on walls, but on people. The wrinkles on every forehead, every psychological wound — these too are traces."</p>
-      <div class="philosophy-body">
-        <p>Yu Qiucheng's thought is rooted in the classical Chinese aesthetic of <em>wulou hen</em> — the "wall-leak trace" first articulated by the Tang calligrapher Yan Zhenqing. When he encountered the hundred-meter factory walls stained by decades of production residue, he understood: these were not imitations of nature, but time and labor inscribed directly into matter.</p>
-        <p>A fatal toxic glue incident at a Guangzhou factory — reported by CCTV — yielded the production traces from the death scene itself. Gazing at the marks left by poisoned workers who had knocked over bowls of toxic adhesive, he realized: traces of time are etched not only into walls, but into human lives.</p>
-        <p>He integrates the Japanese aesthetic of <em>wabi-sabi</em> — wabi: poverty, roughness, impermanence; sabi: solitude, silence. Imperfection as another form of perfection. Drawing on the Buddhist concept of <em>anatta</em> (non-self), he pursues not formal refinement but a poetic abstraction that dissolves the boundary between Eastern and Western painting.</p>
-      </div>
+    <div class="statement-text" lang="en">
+      <p>When we discuss art, what we really need is to strip art away.</p>
+      <p>Every life is art. The wrinkles on a forehead are traces of time; the wounds of the psyche are traces; the decades of production residue on a factory wall are traces. Imperfection is another form of perfection.</p>
     </div>
   </div>
 </div>
 
-<!-- Works -->
-<section id="works" class="full-width fade-in">
-  <div style="padding: 0 2rem;">
-    <p class="section-title">
+<!-- Works — uses work-compass.jpg, work-ink.jpg, exhibition-install.jpg -->
+<section id="works" class="full-bleed reveal">
+  <div style="padding: 0 2.5rem;">
+    <p class="section-label">
       <span lang="zh-inline">作品</span>
-      <span lang="en-inline">Works</span>
+      <span lang="en-inline">Selected Works</span>
     </p>
   </div>
   <div class="works-grid">
-    <div class="work-item large" onclick="openLightbox(this)">
-      <img src="images/work-dark.jpg" alt="余秋呈作品">
-      <div class="work-caption">
-        <h3 lang="zh-inline">纸本生产痕迹</h3>
-        <h3 lang="en-inline">Production Traces on Paper</h3>
-        <p lang="zh-inline">综合材料</p>
-        <p lang="en-inline">Mixed Media</p>
+    <div class="work-item" onclick="openLightbox(this)">
+      <img src="images/work-compass.jpg" alt="回音-3">
+      <div class="work-info">
+        <h3>
+          <span lang="zh-inline">回音-3</span>
+          <span lang="en-inline">Echo-3</span>
+        </h3>
+        <p>80cm×120cm,
+          <span lang="zh-inline">综合材料</span><span lang="en-inline">Mixed Media</span>, 2016
+        </p>
       </div>
     </div>
     <div class="work-item" onclick="openLightbox(this)">
-      <img src="images/work-compass.jpg" alt="余秋呈作品 — 回音">
-      <div class="work-caption">
-        <h3 lang="zh-inline">回音</h3>
-        <h3 lang="en-inline">Echo</h3>
-        <p lang="zh-inline">综合材料，2016</p>
-        <p lang="en-inline">Mixed Media, 2016</p>
+      <img src="images/work-ink.jpg" alt="装置绘画">
+      <div class="work-info">
+        <h3>
+          <span lang="zh-inline">装置绘画</span>
+          <span lang="en-inline">Installation Painting</span>
+        </h3>
+        <p>
+          <span lang="zh-inline">综合材料</span>
+          <span lang="en-inline">Mixed Media</span>
+        </p>
       </div>
     </div>
-    <div class="work-item" onclick="openLightbox(this)">
-      <img src="images/work-ink.jpg" alt="余秋呈作品">
-      <div class="work-caption">
-        <h3 lang="zh-inline">装置绘画</h3>
-        <h3 lang="en-inline">Installation Painting</h3>
-        <p lang="zh-inline">综合材料</p>
-        <p lang="en-inline">Mixed Media</p>
+    <div class="work-item span-2" onclick="openLightbox(this)">
+      <img src="images/exhibition-install.jpg" alt="展览现场">
+      <div class="work-info">
+        <h3>
+          <span lang="zh-inline">现成品的二度绘画性 · 展览现场</span>
+          <span lang="en-inline">The Secondary Painterliness of Readymades · Installation View</span>
+        </h3>
+        <p>
+          <span lang="zh-inline">今日美术馆，北京</span>
+          <span lang="en-inline">Today Art Museum, Beijing</span>, 2016
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Exhibitions -->
-<section id="exhibitions" class="fade-in">
-  <p class="section-title">
-    <span lang="zh-inline">展览</span>
-    <span lang="en-inline">Exhibitions</span>
+<!-- Exhibitions & CV — uses exhibition-gallery.jpg -->
+<section id="exhibitions" class="reveal">
+  <p class="section-label">
+    <span lang="zh-inline">展览与项目</span>
+    <span lang="en-inline">Exhibitions & Projects</span>
   </p>
-  <div class="exhibition-list">
-    <div class="exhibition-entry">
-      <span class="exhibition-year">2019</span>
-      <div class="exhibition-info">
+  <div style="max-width: 800px;">
+    <div class="timeline-entry">
+      <span class="timeline-year">2026</span>
+      <div class="timeline-content">
         <div lang="zh">
-          <h3>Inter-World-View 2019</h3>
-          <p>中国美术学院 &middot; 热带病艺术研究所 &middot;《一个人的社会》项目</p>
+          <h3>《宁静并不宁静》</h3>
+          <p>文章发表于《天涯》杂志第1期</p>
         </div>
         <div lang="en">
-          <h3>Inter-World-View 2019</h3>
-          <p>China Academy of Art &middot; Tropical Disease Art Institute &middot; <em>A Society of One</em></p>
+          <h3>"Tranquility Is Not Tranquil"</h3>
+          <p>Essay published in <em>Tianya</em> Magazine, Issue 1</p>
         </div>
       </div>
     </div>
-    <div class="exhibition-entry">
-      <span class="exhibition-year">2016</span>
-      <div class="exhibition-info">
+    <div class="timeline-entry">
+      <span class="timeline-year">2019</span>
+      <div class="timeline-content">
         <div lang="zh">
-          <h3>现成品的二度绘画性 — 余秋呈个展</h3>
-          <p>北京今日美术馆 &middot; 策展人：朱其</p>
+          <h3>Inter-World-View 2019 ·《一个人的社会》</h3>
+          <p>中国美术学院 · 热带病艺术研究所</p>
         </div>
         <div lang="en">
-          <h3>The Secondary Painterliness of Readymades — Solo Exhibition</h3>
-          <p>Today Art Museum, Beijing &middot; Curated by Zhu Qi</p>
+          <h3>Inter-World-View 2019 · <em>A Society of One</em></h3>
+          <p>China Academy of Art · Tropical Disease Art Institute</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-entry">
+      <span class="timeline-year">2016</span>
+      <div class="timeline-content">
+        <div lang="zh">
+          <h3>现成品的二度绘画性 — 个展</h3>
+          <p>北京今日美术馆 · 策展人：朱其</p>
+        </div>
+        <div lang="en">
+          <h3>The Secondary Painterliness of Readymades — Solo</h3>
+          <p>Today Art Museum, Beijing · Curated by Zhu Qi</p>
         </div>
       </div>
     </div>
   </div>
+  <img src="images/exhibition-gallery.jpg" alt="展览现场" class="exhibition-image">
 </section>
 
 <!-- Practice -->
-<div class="practice-section fade-in">
-  <div class="practice-inner">
-    <p class="section-title">
+<div class="statement-section reveal">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <p class="section-label">
       <span lang="zh-inline">实践</span>
       <span lang="en-inline">Practice</span>
     </p>
-    <div class="practice-grid">
-      <div class="practice-card">
+    <div class="two-col">
+      <div class="col">
         <div lang="zh">
-          <h3>白云心理医院</h3>
-          <p>在广州白云心理医院设立工作室，以拉康式精神分析的方法，充当住院者的「耳朵」。从物质的边角料到精神的边角料——倾听那些被社会排斥的声音，在讲述与聆听之间建立移情关系。</p>
+          <h3>精神分析</h3>
+          <p>在广州白云心理医院设立工作室，以拉康式精神分析的方法介入社会现场。充当住院者的「耳朵」——在讲述与聆听之间，建立不可思议的移情关系。从物质的边角料到精神的边角料。</p>
         </div>
         <div lang="en">
-          <h3>Baiyun Psychiatric Hospital</h3>
-          <p>Based at Guangzhou's Baiyun Psychiatric Hospital, he practices Lacanian listening — becoming "the ear" for patients. From material offcuts to spiritual offcuts: hearing the voices excluded by society, building transference through the act of telling and listening.</p>
+          <h3>Psychoanalysis</h3>
+          <p>Working from a studio at Guangzhou's Baiyun Psychiatric Hospital, he practices Lacanian listening — becoming the ear for those whose voices society has excluded. Between telling and hearing, an extraordinary transference takes shape. From material offcuts to spiritual ones.</p>
         </div>
       </div>
-      <div class="practice-card">
+      <div class="col">
         <div lang="zh">
           <h3>艺术治疗</h3>
-          <p>在癌症康复营中开展绘画治疗课程，融合侘寂美学与佛教观想，引导营员通过身体感知进行创作。以五行为框架——火烧黑暗，水洗毒素，在撕裂与重组中完成身心的净化。</p>
+          <p>在癌症康复营中开展绘画治疗课程，融合侘寂美学与佛教观想。引导参与者通过身体感知作画，在撕裂与重组中完成身心净化。侘——贫穷、无常；寂——孤独、寂静。不完美才是另一种完美。</p>
         </div>
         <div lang="en">
           <h3>Art Therapy</h3>
-          <p>Leading painting therapy in cancer recovery programs, integrating wabi-sabi aesthetics with Buddhist visualization. Guided by the five elements — burning darkness with fire, washing toxins with water — participants create through tearing and reassembling, achieving purification of body and mind.</p>
+          <p>Leading painting therapy in cancer recovery programs, integrating wabi-sabi aesthetics with Buddhist visualization. Participants create through bodily awareness — tearing and reassembling toward purification. Wabi: poverty, impermanence. Sabi: solitude, stillness. Imperfection as perfection.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Publications -->
-<section id="publications" class="fade-in">
-  <p class="section-title">
-    <span lang="zh-inline">发表</span>
-    <span lang="en-inline">Publications</span>
-  </p>
-  <div class="exhibition-list">
-    <div class="pub-entry">
-      <div lang="zh">
-        <h3>《宁静并不宁静》</h3>
-        <p>《天涯》杂志，2026年第1期</p>
-      </div>
-      <div lang="en">
-        <h3>"Tranquility Is Not Tranquil"</h3>
-        <p><em>Tianya</em> Magazine, Issue 1, 2026</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Footer -->
 <footer>
@@ -740,9 +699,8 @@ footer p {
 </div>
 
 <script>
-// Language toggle
 function setLang(lang) {
-  const btns = document.querySelectorAll('.lang-toggle button');
+  var btns = document.querySelectorAll('.lang-toggle button');
   if (lang === 'en') {
     document.body.classList.add('en');
     btns[0].classList.remove('active');
@@ -754,12 +712,11 @@ function setLang(lang) {
   }
 }
 
-// Lightbox
 function openLightbox(el) {
-  const img = el.querySelector('img');
-  const caption = el.querySelector('.work-caption h3');
+  var img = el.querySelector('img');
+  var title = el.querySelector('.work-info h3');
   document.getElementById('lightbox-img').src = img.src;
-  document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+  document.getElementById('lightbox-caption').textContent = title ? title.textContent.trim() : '';
   document.getElementById('lightbox').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -773,16 +730,13 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
 
-// Fade in on scroll
-const observer = new IntersectionObserver(function(entries) {
+var observer = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
-document.querySelectorAll('.fade-in').forEach(function(el) {
+document.querySelectorAll('.reveal').forEach(function(el) {
   observer.observe(el);
 });
 </script>
