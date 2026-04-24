@@ -12,17 +12,20 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --void: #050404;
-  --black: #0a0807;
-  --dark: #110f0d;
-  --charcoal: #1a1714;
-  --ash: #2a2622;
+  --void: #030202;
+  --black: #080605;
+  --dark: #0e0c0a;
+  --charcoal: #161311;
+  --ash: #252220;
+  --rust: #1e1510;
   --stone: #5a5450;
   --bone: #9e9488;
   --parchment: #b8ada0;
   --cream: #d4cbbf;
   --blood: #6b1a10;
   --wound: #8a2a1a;
+  --ochre: #7a5c2e;
+  --burnt: #3d2a16;
 }
 
 html {
@@ -40,15 +43,28 @@ body {
   overflow-x: hidden;
 }
 
-/* Film grain overlay */
+/* Heavy grain overlay — ruins texture */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Secondary texture layer — concrete dust */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.025;
+  background: radial-gradient(ellipse at 20% 50%, rgba(122,92,46,0.15) 0%, transparent 70%),
+              radial-gradient(ellipse at 80% 30%, rgba(107,26,16,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 50% 90%, rgba(61,42,22,0.12) 0%, transparent 50%);
 }
 
 ::selection {
@@ -111,7 +127,7 @@ body:not(.en) [lang="en-inline"] { display: none; }
 [lang="zh-inline"], [lang="en-inline"] { display: inline; }
 body.en [lang="en-inline"] { display: inline; }
 
-/* Hero */
+/* ===================== HERO — fractured monument ===================== */
 .hero {
   height: 100vh;
   display: flex;
@@ -124,17 +140,35 @@ body.en [lang="en-inline"] { display: inline; }
   position: absolute;
   inset: 0;
   background: url('images/work-dark.jpg') center 40% / cover no-repeat;
-  filter: brightness(0.3) contrast(1.2) saturate(0.7);
-  transform: scale(1.08);
+  filter: brightness(0.22) contrast(1.4) saturate(0.5);
+  transform: scale(1.1);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-    rgba(5,4,4,0.3) 0%,
-    rgba(5,4,4,0) 30%,
-    rgba(5,4,4,0.8) 100%);
+  background:
+    linear-gradient(180deg,
+      rgba(3,2,2,0.5) 0%,
+      rgba(3,2,2,0) 25%,
+      rgba(3,2,2,0) 50%,
+      rgba(3,2,2,0.85) 100%),
+    linear-gradient(90deg,
+      rgba(3,2,2,0.4) 0%,
+      transparent 40%);
+}
+
+/* Scar line across hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 35%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, var(--ash) 20%, var(--stone) 40%, transparent 60%);
+  opacity: 0.3;
+  z-index: 1;
 }
 
 .hero-content {
@@ -144,11 +178,12 @@ body.en [lang="en-inline"] { display: inline; }
 }
 
 .hero-name-zh {
-  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
   font-weight: 200;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   color: var(--cream);
-  line-height: 1.1;
+  line-height: 1.05;
+  text-shadow: 0 0 80px rgba(122,92,46,0.08);
 }
 
 .hero-name-en {
@@ -161,7 +196,17 @@ body.en [lang="en-inline"] { display: inline; }
   margin-top: 0.8rem;
 }
 
-/* Section spacing */
+/* Cubist subtitle — fractured identity */
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  color: var(--ash);
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+/* ===================== Sections ===================== */
 .sect {
   max-width: 1100px;
   margin: 0 auto;
@@ -175,17 +220,29 @@ body.en [lang="en-inline"] { display: inline; }
 }
 
 .sect-label {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
   color: var(--stone);
   margin-bottom: 3.5rem;
+  position: relative;
+  padding-left: 2.5rem;
 }
 
-/* Quote blocks — his own words */
+.sect-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1.8rem;
+  height: 1px;
+  background: var(--ash);
+}
+
+/* ===================== Voice — his own words ===================== */
 .voice {
-  padding: 6rem 2.5rem;
+  padding: 7rem 2.5rem;
   text-align: center;
   position: relative;
 }
@@ -196,8 +253,8 @@ body.en [lang="en-inline"] { display: inline; }
   left: 50%;
   top: 0;
   width: 1px;
-  height: 40px;
-  background: var(--ash);
+  height: 50px;
+  background: linear-gradient(180deg, transparent, var(--ash));
   transform: translateX(-50%);
 }
 
@@ -206,19 +263,45 @@ body.en [lang="en-inline"] { display: inline; }
   margin: 0 auto;
   font-size: clamp(1.15rem, 1.8vw, 1.5rem);
   font-weight: 200;
-  line-height: 2.2;
+  line-height: 2.4;
   color: var(--cream);
+  font-style: italic;
 }
 
 .voice-attr {
-  margin-top: 1.5rem;
-  font-size: 0.72rem;
+  margin-top: 1.8rem;
+  font-size: 0.7rem;
   font-family: 'Cormorant Garamond', serif;
   color: var(--stone);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
 }
 
-/* About */
+/* ===================== Scar divider ===================== */
+.scar {
+  width: 100%;
+  height: 1px;
+  position: relative;
+  overflow: visible;
+}
+
+.scar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--burnt) 15%,
+    var(--ash) 35%,
+    var(--burnt) 55%,
+    var(--ash) 70%,
+    transparent 95%);
+  opacity: 0.5;
+}
+
+/* ===================== About ===================== */
 .about-layout {
   display: grid;
   grid-template-columns: 5fr 7fr;
@@ -226,9 +309,23 @@ body.en [lang="en-inline"] { display: inline; }
   align-items: start;
 }
 
+.about-portrait-wrap {
+  position: relative;
+}
+
+.about-portrait-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid var(--charcoal);
+  pointer-events: none;
+  clip-path: polygon(2% 0%, 100% 0%, 98% 100%, 0% 100%);
+}
+
 .about-portrait {
   width: 100%;
-  filter: contrast(1.08) saturate(0.85);
+  filter: contrast(1.15) saturate(0.6) brightness(0.9);
+  mix-blend-mode: luminosity;
 }
 
 .about-body p {
@@ -251,8 +348,9 @@ body.en [lang="en-inline"] { display: inline; }
 .meta-label {
   color: var(--stone);
   font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   margin-bottom: 0.15rem;
 }
 
@@ -261,11 +359,11 @@ body.en [lang="en-inline"] { display: inline; }
   font-weight: 300;
 }
 
-/* Works */
+/* ===================== Works — cubist grid ===================== */
 .works-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  grid-template-columns: 7fr 5fr;
+  gap: 3px;
 }
 
 .work-item {
@@ -279,13 +377,13 @@ body.en [lang="en-inline"] { display: inline; }
   width: 100%;
   aspect-ratio: 4/3;
   object-fit: cover;
-  transition: transform 1s cubic-bezier(0.25, 0, 0.15, 1), filter 0.8s;
-  filter: brightness(0.8) saturate(0.85);
+  transition: transform 1.2s cubic-bezier(0.25, 0, 0.15, 1), filter 1s;
+  filter: brightness(0.75) saturate(0.7) contrast(1.1);
 }
 
 .work-item:hover img {
-  transform: scale(1.04);
-  filter: brightness(0.95) saturate(1);
+  transform: scale(1.06);
+  filter: brightness(0.9) saturate(0.9) contrast(1.1);
 }
 
 .work-info {
@@ -293,25 +391,27 @@ body.en [lang="en-inline"] { display: inline; }
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 2rem;
-  background: linear-gradient(transparent, rgba(5,4,4,0.9));
+  padding: 2.5rem;
+  background: linear-gradient(transparent, rgba(3,2,2,0.92));
   opacity: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.6s;
 }
 
 .work-item:hover .work-info { opacity: 1; }
 
 .work-info h3 {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 400;
   color: var(--cream);
   margin-bottom: 0.15rem;
+  letter-spacing: 0.05em;
 }
 
 .work-info p {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--stone);
   font-weight: 300;
+  letter-spacing: 0.08em;
 }
 
 .work-item.wide {
@@ -322,7 +422,7 @@ body.en [lang="en-inline"] { display: inline; }
   aspect-ratio: 21/9;
 }
 
-/* Timeline */
+/* ===================== Timeline ===================== */
 .tl-entry {
   padding: 1.8rem 0;
   border-bottom: 1px solid var(--charcoal);
@@ -352,20 +452,11 @@ body.en [lang="en-inline"] { display: inline; }
   color: var(--stone);
 }
 
-/* Exhibition photo */
-.exh-photo {
-  margin-top: 3.5rem;
-  width: 100%;
-  max-height: 480px;
-  object-fit: cover;
-  filter: brightness(0.85) saturate(0.8);
-}
-
-/* Two-col practice */
+/* ===================== Two-col practice ===================== */
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 5rem;
 }
 
 .col h3 {
@@ -373,6 +464,7 @@ body.en [lang="en-inline"] { display: inline; }
   font-weight: 400;
   color: var(--cream);
   margin-bottom: 0.8rem;
+  letter-spacing: 0.08em;
 }
 
 .col p {
@@ -381,10 +473,29 @@ body.en [lang="en-inline"] { display: inline; }
   line-height: 2.1;
 }
 
-/* Dark band */
+/* ===================== Dark band — concrete slab ===================== */
 .dark-band {
   background: var(--dark);
   padding: 7rem 2.5rem;
+  position: relative;
+}
+
+.dark-band::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,
+    transparent 5%,
+    var(--burnt) 15%,
+    var(--ash) 30%,
+    var(--wound) 31%,
+    var(--ash) 32%,
+    var(--burnt) 60%,
+    transparent 90%);
+  opacity: 0.35;
 }
 
 .dark-band-inner {
@@ -392,25 +503,63 @@ body.en [lang="en-inline"] { display: inline; }
   margin: 0 auto;
 }
 
-/* Footer */
+/* ===================== Picasso quote ===================== */
+.epigraph {
+  padding: 5rem 2.5rem 3rem;
+  text-align: right;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.epigraph-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--stone);
+  letter-spacing: 0.04em;
+  line-height: 2;
+}
+
+.epigraph-attr {
+  margin-top: 0.8rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.68rem;
+  color: var(--ash);
+  letter-spacing: 0.2em;
+}
+
+/* ===================== Footer ===================== */
 footer {
   padding: 3.5rem 2.5rem;
   text-align: center;
   border-top: 1px solid var(--charcoal);
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 30%;
+  width: 8px;
+  height: 3px;
+  background: var(--wound);
+  opacity: 0.3;
 }
 
 footer p {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--ash);
   font-weight: 300;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
 }
 
-/* Reveal */
+/* ===================== Reveal animation ===================== */
 .rv {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1s ease, transform 1s ease;
+  transform: translateY(25px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .rv.visible {
@@ -418,13 +567,13 @@ footer p {
   transform: translateY(0);
 }
 
-/* Lightbox */
+/* ===================== Lightbox ===================== */
 .lightbox {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(5,4,4,0.97);
+  background: rgba(3,2,2,0.98);
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -449,7 +598,7 @@ footer p {
   font-weight: 300;
 }
 
-/* Responsive */
+/* ===================== Responsive ===================== */
 @media (max-width: 768px) {
   nav { padding: 1rem 1.5rem; }
   .hero-content { padding: 0 1.5rem 3rem; }
@@ -464,6 +613,7 @@ footer p {
   .sect { padding: 4.5rem 1.5rem; }
   .voice { padding: 4rem 1.5rem; }
   .dark-band { padding: 4.5rem 1.5rem; }
+  .epigraph { padding: 3rem 1.5rem 2rem; text-align: center; }
 }
 </style>
 </head>
@@ -478,13 +628,17 @@ footer p {
   </div>
 </nav>
 
-<!-- Hero — work-dark.jpg -->
+<!-- Hero -->
 <header class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-name-zh">余秋呈</h1>
     <p class="hero-name-en">Yu Qiucheng</p>
+    <p class="hero-subtitle">
+      <span lang="zh-inline">艺术家 · 精神分析师</span>
+      <span lang="en-inline">Artist · Psychoanalyst</span>
+    </p>
   </div>
 </header>
 
@@ -495,14 +649,18 @@ footer p {
   <p class="voice-attr">— 余秋呈</p>
 </div>
 
-<!-- About — portrait.jpg -->
+<div class="scar"></div>
+
+<!-- About -->
 <section class="sect rv" id="about">
   <p class="sect-label">
     <span lang="zh-inline">关于</span>
     <span lang="en-inline">About</span>
   </p>
   <div class="about-layout">
-    <img src="images/portrait.jpg" alt="余秋呈" class="about-portrait">
+    <div class="about-portrait-wrap">
+      <img src="images/portrait.jpg" alt="余秋呈" class="about-portrait">
+    </div>
     <div class="about-body">
       <div lang="zh">
         <p>艺术家、精神分析师，现居广州。七岁师从国画家邓少峰，习画六年；1997年师从湖北美院油画系主任胡朝阳；2005年后追随尚扬先生。</p>
@@ -552,7 +710,9 @@ footer p {
   <p class="voice-attr">— 余秋呈</p>
 </div>
 
-<!-- Works — work-compass.jpg, work-ink.jpg, exhibition-install.jpg -->
+<div class="scar"></div>
+
+<!-- Works — cubist asymmetric grid -->
 <section class="sect bleed rv" id="works">
   <div style="padding: 0 2.5rem;">
     <p class="sect-label">
@@ -576,16 +736,16 @@ footer p {
       </div>
     </div>
     <div class="work-item wide" onclick="openLightbox(this)">
-      <img src="images/exhibition-install.jpg" alt="展览现场">
+      <img src="images/work-cardboard.jpg" alt="现成品的二度绘画性">
       <div class="work-info">
-        <h3><span lang="zh-inline">现成品的二度绘画性 · 展览现场</span><span lang="en-inline">The Secondary Painterliness of Readymades · Installation View</span></h3>
-        <p><span lang="zh-inline">今日美术馆，北京</span><span lang="en-inline">Today Art Museum, Beijing</span>, 2016</p>
+        <h3><span lang="zh-inline">现成品的二度绘画性</span><span lang="en-inline">The Secondary Painterliness of Readymades</span></h3>
+        <p><span lang="zh-inline">综合材料</span><span lang="en-inline">Mixed Media</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Voice 3 -->
+<!-- Voice 3 — patient's voice -->
 <div class="voice rv">
   <p class="voice-text" lang="zh">你前面收集的是工业生产的边角料，属于物质的边角料。你现在到医院来，收集的是精神上的边角料。我们这里的住院者属于精神上被社会排斥的边角料，是这个社会的垃圾。</p>
   <p class="voice-text" lang="en">Before, you collected the offcuts of industrial production — material scraps. Now you've come to the hospital to collect spiritual offcuts. We patients are the spiritual scraps rejected by society. We are its waste.</p>
@@ -593,7 +753,9 @@ footer p {
   <p class="voice-attr" lang="en">— A patient at Baiyun Psychiatric Hospital</p>
 </div>
 
-<!-- Exhibitions — exhibition-gallery.jpg -->
+<div class="scar"></div>
+
+<!-- Exhibitions -->
 <section class="sect rv" id="exhibitions">
   <p class="sect-label">
     <span lang="zh-inline">展览与项目</span>
@@ -640,8 +802,14 @@ footer p {
       </div>
     </div>
   </div>
-  <img src="images/exhibition-gallery.jpg" alt="展览现场" class="exh-photo">
 </section>
+
+<!-- Picasso epigraph — his spiritual kin -->
+<div class="epigraph rv">
+  <p class="epigraph-text" lang="zh">"每个孩子都是艺术家。问题是长大后如何保持一个艺术家。"</p>
+  <p class="epigraph-text" lang="en">"Every child is an artist. The problem is how to remain an artist once we grow up."</p>
+  <p class="epigraph-attr">— Pablo Picasso</p>
+</div>
 
 <!-- Practice -->
 <div class="dark-band rv">
